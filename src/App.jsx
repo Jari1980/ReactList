@@ -2,9 +2,16 @@ import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 
 export default function App() {
-  const [name, setName] = useState('')
-  const [grade, setGrade] = useState('')
-  const [snuss, setSnuss] = useState('')
+  
+  const [name, setName] = useState('') // To be removed using these so onClick event wont be messed
+  const [grade, setGrade] = useState('') //
+
+  const [snuss, setSnuss] = useState([
+    {name:"Kapten", grade:5},
+    {name:"Klaven", grade:4}
+  ])
+
+
   const snus = [
     {
       name: "Kapten",
@@ -15,6 +22,7 @@ export default function App() {
       grade: 4,
     },
   ];
+  
 
   return (
     <>
@@ -61,7 +69,7 @@ export default function App() {
           setSnuss([
             ...snuss,
             {name: name, grade: grade},
-            console.log("clicked added " + name + " " + grade)
+            //console.log("clicked added " + name + " " + grade)
           ])
         }}>
           Submit
@@ -69,4 +77,5 @@ export default function App() {
       </form>
     </>
   );
+  
 }
