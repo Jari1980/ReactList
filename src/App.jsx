@@ -3,8 +3,8 @@ import "bootstrap/dist/css/bootstrap.css";
 
 export default function App() {
   
-  const [name, setName] = useState('') // To be removed using these so onClick event wont be messed
-  const [grade, setGrade] = useState('') //
+  //const [name, setName] = useState('') // To be removed using these so onClick event wont be messed
+  //const [grade, setGrade] = useState('') //
 
   const [snuss, setSnuss] = useState([
     {name:"Kapten", grade:5},
@@ -12,7 +12,7 @@ export default function App() {
   ])
 
 
-  const snus = [
+  /*const snus = [
     {
       name: "Kapten",
       grade: 5,
@@ -21,7 +21,7 @@ export default function App() {
       name: "Klaven",
       grade: 4,
     },
-  ];
+  ];*/
   
 
   return (
@@ -29,11 +29,11 @@ export default function App() {
       <h1>Snus graded</h1>
       <br />
       <ul className="list-group">
-        {snus.map((snus) => {
+        {snuss.map((snuss) => {
           return (
-            <li key={snus.name} className="list-group-item">
+            <li key={snuss.name} className="list-group-item">
               <span>
-                Snus: {snus.name} Grade: {snus.grade}
+                Snus: {snuss.name} Grade: {snuss.grade}
               </span>
             </li>
           );
@@ -50,8 +50,8 @@ export default function App() {
             className="form-control"
             id="snusInput"
             placeholder="Enter new snus"
-            value={name}
-            onChange={e => setName(e.target.value)}
+            value={snuss.name}
+            //onChange={e => setSnuss(e.target.value)}
           />
         </div>
         <div className="form-group">
@@ -61,14 +61,14 @@ export default function App() {
             className="form-control"
             id="snusGrade"
             placeholder="Enter Snus grade 1-5"
-            value={grade}
-            onChange={e => setGrade(e.target.value)}
+            value={snuss.grade}
+            //onChange={e => setSnuss(e.target.value)}
           />
         </div>
         <button type="submit" className="btn btn-primary" onClick={() => {
           setSnuss([
             ...snuss,
-            {name: name, grade: grade},
+            {name: snuss.name, grade: snuss.grade},
             //console.log("clicked added " + name + " " + grade)
           ])
         }}>
