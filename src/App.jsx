@@ -3,25 +3,27 @@ import "bootstrap/dist/css/bootstrap.css";
 
 export default function App() {
   
-  //const [name, setName] = useState('') // To be removed using these so onClick event wont be messed
-  //const [grade, setGrade] = useState('') //
+  const [name, setName] = useState('') 
+  const [grade, setGrade] = useState('') 
 
   const [snuss, setSnuss] = useState([
     {name:"Kapten", grade:5},
     {name:"Klaven", grade:4}
   ])
 
+  const handleAddName = event => {
+    setName(event.target.value)
+    console.log(name) // name is uppdated properly
+  }
+  const handleAddGrade = event => {
+    setGrade(event.target.value)
+  }
+  const handleClick = event => {
+    //setSnuss([... snuss, {snuss: name, grade: grade}])
+    setSnuss((snuss) => [...snuss, {name, grade},])
+    return [snuss, setSnuss]
+  }
 
-  /*const snus = [
-    {
-      name: "Kapten",
-      grade: 5,
-    },
-    {
-      name: "Klaven",
-      grade: 4,
-    },
-  ];*/
   
 
   return (
@@ -50,8 +52,8 @@ export default function App() {
             className="form-control"
             id="snusInput"
             placeholder="Enter new snus"
-            value={snuss.name}
-            //onChange={e => setSnuss(e.target.value)}
+            //value={snuss.name}
+            onChange={handleAddName}
           />
         </div>
         <div className="form-group">
@@ -61,17 +63,20 @@ export default function App() {
             className="form-control"
             id="snusGrade"
             placeholder="Enter Snus grade 1-5"
-            value={snuss.grade}
-            //onChange={e => setSnuss(e.target.value)}
+            //value={snuss.grade}
+            onChange={handleAddGrade}
           />
         </div>
-        <button type="submit" className="btn btn-primary" onClick={() => {
+        <button className="btn btn-primary" onClick={handleClick}
+        
+        /*onClick={() => {
           setSnuss([
             ...snuss,
             {name: snuss.name, grade: snuss.grade},
             //console.log("clicked added " + name + " " + grade)
           ])
-        }}>
+        }}*/
+          >
           Submit
         </button>
       </form>
