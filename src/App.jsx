@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 
 export default function App() {
@@ -6,24 +6,15 @@ export default function App() {
   const [name, setName] = useState('') 
   const [grade, setGrade] = useState('') 
 
-  const [snuss, setSnuss] = useState([
-    {name:"Kapten", grade:5},
-    {name:"Klaven", grade:4}
-  ])
+  const [snuss, setSnuss] = useState([  ])
 
-  const handleAddName = event => {
-    setName(event.target.value)
-    console.log(name) // name is uppdated properly
-  }
-  const handleAddGrade = event => {
-    setGrade(event.target.value)
-  }
-  const handleClick = event => {
-    //setSnuss([... snuss, {snuss: name, grade: grade}])
-    setSnuss((snuss) => [...snuss, {name, grade},])
-    return [snuss, setSnuss]
-  }
+  useEffect(()=> {
+    // call api and set its result into the array
+  }, [])
 
+  const handleClick = event => {     
+    setSnuss([...snuss, {name: name, grade: grade}]) 
+  }
   
 
   return (
@@ -52,8 +43,8 @@ export default function App() {
             className="form-control"
             id="snusInput"
             placeholder="Enter new snus"
-            //value={snuss.name}
-            onChange={handleAddName}
+            value = {name}
+            onChange={()=> setName(event.target.value)}
           />
         </div>
         <div className="form-group">
@@ -63,20 +54,11 @@ export default function App() {
             className="form-control"
             id="snusGrade"
             placeholder="Enter Snus grade 1-5"
-            //value={snuss.grade}
-            onChange={handleAddGrade}
+            value={grade}
+            onChange={()=> setGrade(event.target.value)}
           />
         </div>
-        <button className="btn btn-primary" onClick={handleClick}
-        
-        /*onClick={() => {
-          setSnuss([
-            ...snuss,
-            {name: snuss.name, grade: snuss.grade},
-            //console.log("clicked added " + name + " " + grade)
-          ])
-        }}*/
-          >
+        <button type="button" className="btn btn-primary" onClick={handleClick}>
           Submit
         </button>
       </form>
