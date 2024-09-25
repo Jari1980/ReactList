@@ -10,6 +10,16 @@ export default function App() {
 
   useEffect(()=> {
     // call api and set its result into the array
+    fetch('http://localhost:8080/snus')
+    .then((res) => {
+      return res.json()
+    })
+    .then((data) => {
+      console.log(data);
+      //setName(data.snus.name)
+      //console.log(name)
+      setSnuss(data)
+    })
   }, [])
 
   const handleClick = event => {     
