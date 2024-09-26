@@ -44,8 +44,27 @@ export default function App() {
   };
 
   function handleRemove(name){
-    const newList = snuss.filter((snuss) => snuss.name !== name)
-    setSnuss(newList)
+    fetch('http://localhost:8080/snus/delete', {
+      method: 'DELETE',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name: name,
+      })
+    })
+    fetch("http://localhost:8080/snus") 
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data);
+        setSnuss(data);
+      
+      });
+    //const newList = snuss.filter((snuss) => snuss.name !== name)
+    //setSnuss(newList)
   }
 
   return (
