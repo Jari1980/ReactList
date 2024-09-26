@@ -31,8 +31,8 @@ export default function App() {
           return (
             <li key={snuss.name} className="list-group-item">
               <div style={{textAlign:"center"}}>
-                <span style={{ float: "left" }}><b>{snuss.name}</b></span>
-                <span style={{ display:"inline-block", textAlign: "center" }}>{snuss.grade}</span>
+                <span style={{ float: "left", width:20 }}><b>{snuss.name}</b></span>
+                <span style={{ display:"inline-flex", textAlign: "center" }}>{snuss.grade}</span>
                 <span>
                   <button
                     type="button"
