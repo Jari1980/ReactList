@@ -8,18 +8,39 @@ export default function App() {
   const [snuss, setSnuss] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:8080/snus")
+    async function fetchData() {
+      const result = await fetch("http://localhost:8080/snus")
+      const body = await result.json()
+      setSnuss(body)
+    }
+    fetchData()
+  }, []);
+
+  const handleClick = (event) => {
+    fetch('http://localhost:8080/snus/add', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name: name,
+        grade: grade,
+      })
+    })
+    fetch("http://localhost:8080/snus") 
       .then((res) => {
         return res.json();
       })
       .then((data) => {
         console.log(data);
         setSnuss(data);
+      
       });
-  }, []);
 
-  const handleClick = (event) => {
-    setSnuss([...snuss, { name: name, grade: grade }]);
+
+    //setSnuss([...snuss, { name: name, grade: grade }])  //This works on local but reading data from API instead
+    
   };
 
   function handleRemove(name){
