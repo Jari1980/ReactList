@@ -22,6 +22,11 @@ export default function App() {
     setSnuss([...snuss, { name: name, grade: grade }]);
   };
 
+  function handleRemove(name){
+    const newList = snuss.filter((snuss) => snuss.name !== name)
+    setSnuss(newList)
+  }
+
   return (
     <>
       <h1>Snus graded</h1>
@@ -38,6 +43,7 @@ export default function App() {
                     type="button"
                     className="btn btn-danger"
                     style={{ float: "right" }}
+                    onClick={() => handleRemove(snuss.name)}
                   >
                     Remove
                   </button>
