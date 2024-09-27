@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.css";
 export default function App() {
   const [name, setName] = useState("");
   const [grade, setGrade] = useState("");
+  const [id, setId] = useState("");
 
   const [snuss, setSnuss] = useState([]);
 
@@ -17,6 +18,8 @@ export default function App() {
   }, []);
 
   const handleClick = (event) => {
+    const newId = Math.max(...snuss.map(o => o.id)) + 1;
+
     fetch('http://localhost:8080/snus/add', {
       method: 'POST',
       headers: {
@@ -24,26 +27,24 @@ export default function App() {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
+        id: newId,
         name: name,
         grade: grade,
       })
     })
-    fetch("http://localhost:8080/snus") 
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        console.log(data);
-        setSnuss(data);
-      
-      });
 
+    async function fetchData() {
+      const result = await fetch("http://localhost:8080/snus")
+      const body = await result.json()
+      setSnuss(body)
+    }
+    fetchData()
 
     //setSnuss([...snuss, { name: name, grade: grade }])  //This works on local but reading data from API instead
     
   };
 
-  function handleRemove(name){
+  function handleRemove(id){
     fetch('http://localhost:8080/snus/delete', {
       method: 'DELETE',
       headers: {
@@ -51,18 +52,17 @@ export default function App() {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        name: name,
+        id: id,
       })
     })
-    fetch("http://localhost:8080/snus") 
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        console.log(data);
-        setSnuss(data);
-      
-      });
+
+    async function fetchData() {
+      const result = await fetch("http://localhost:8080/snus")
+      const body = await result.json()
+      setSnuss(body)
+    }
+    fetchData()
+
     //const newList = snuss.filter((snuss) => snuss.name !== name)
     //setSnuss(newList)
   }
@@ -74,7 +74,7 @@ export default function App() {
       <ul className="list-group">
         {snuss.map((snuss) => {
           return (
-            <li key={snuss.name} className="list-group-item">
+            <li key={snuss.id} className="list-group-item">
               <div style={{textAlign:"center"}}>
                 <span style={{ float: "left", width:20 }}><b>{snuss.name}</b></span>
                 <span style={{ display:"inline-flex", textAlign: "center" }}>{snuss.grade}</span>
@@ -83,7 +83,7 @@ export default function App() {
                     type="button"
                     className="btn btn-danger"
                     style={{ float: "right" }}
-                    onClick={() => handleRemove(snuss.name)}
+                    onClick={() => handleRemove(snuss.id)}
                   >
                     Remove
                   </button>
